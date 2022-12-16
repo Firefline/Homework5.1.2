@@ -30,23 +30,27 @@ std::variant<int, std::string, std::vector<int>> get_variant() {
 int main(int argc, char** argv)
 {
     setlocale(LC_ALL, "Russian");
-	
-	if (get_variant() == std::get_if<int>())
+
+	auto var = get_variant();
+
+	if (std::holds_alternative<int>(var) == true)
 	{
-		std::cout << get_variant() * 2 << std::endl;
+		auto var_int = std::get<int>(var);
+		std::cout << var_int * 2 << std::endl;
 	}
-	if (get_variant() == std::get_if<std::vector<int>>())
+	if (std::holds_alternative<std::vector<int>>(var) == true)
 	{
-		for (int num : get_variant())
+		auto var_vector = std::get<std::vector<int>>(var);
+		for (int num : var_vector)
 		{
 			std::cout << num << " ";
 		}
 	}
-	if (get_variant() == std::get_if<std::string>())
+	if (std::holds_alternative<std::string>(var) == true)
 	{
-		std::cout << get_variant();
+		auto var_string = std::get<std::string>(var);
+		std::cout << var_string;
 	}
-
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
